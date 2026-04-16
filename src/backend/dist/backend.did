@@ -1,0 +1,88 @@
+type UserRole = 
+ variant {
+   admin;
+   guest;
+   user;
+ };
+type UpdateOrderStatusRequest = 
+ record {
+   orderId: OrderId;
+   status: OrderStatus;
+   trackingNumber: opt text;
+ };
+type Time = int;
+type TemplateId = nat;
+type Template = 
+ record {
+   description: text;
+   id: TemplateId;
+   name: text;
+   previewImageUrl: text;
+ };
+type SocialLinks = 
+ record {
+   instagram: opt text;
+   linkedin: opt text;
+   twitter: opt text;
+ };
+type OrderStatus = 
+ variant {
+   delivered;
+   pending;
+   processing;
+   shipped;
+ };
+type OrderQuantity = 
+ variant {
+   q100;
+   q1000;
+   q2000;
+   q500;
+ };
+type OrderId = nat;
+type Order = 
+ record {
+   cardDetails: CardDetails;
+   createdAt: Time;
+   id: OrderId;
+   owner: principal;
+   paymentAmountCents: nat;
+   quantity: OrderQuantity;
+   status: OrderStatus;
+   stripePaymentIntentId: opt text;
+   templateId: TemplateId;
+   trackingNumber: opt text;
+   updatedAt: Time;
+ };
+type CreateOrderRequest = 
+ record {
+   cardDetails: CardDetails;
+   quantity: OrderQuantity;
+   templateId: TemplateId;
+ };
+type CardDetails = 
+ record {
+   company: text;
+   customMessage: opt text;
+   email: text;
+   jobTitle: text;
+   name: text;
+   phone: text;
+   socialLinks: SocialLinks;
+   website: opt text;
+ };
+service : {
+  _initializeAccessControl: () -> ();
+  adminUpdateOrderStatus: (req: UpdateOrderStatusRequest) -> (bool);
+  assignCallerUserRole: (user: principal, role: UserRole) -> ();
+  confirmOrderPayment: (orderId: OrderId, stripePaymentIntentId: text) ->
+   (bool);
+  createOrder: (req: CreateOrderRequest) -> (Order);
+  duplicateOrder: (sourceOrderId: OrderId) -> (opt Order);
+  getCallerUserRole: () -> (UserRole) query;
+  getMyOrder: (orderId: OrderId) -> (opt Order) query;
+  getTemplate: (id: TemplateId) -> (opt Template) query;
+  isCallerAdmin: () -> (bool) query;
+  listMyOrders: () -> (vec Order) query;
+  listTemplates: () -> (vec Template) query;
+}

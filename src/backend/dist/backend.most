@@ -1,0 +1,64 @@
+// Version: 1.0.0
+type CardDetails__557858974 =
+  {
+    company : Text;
+    customMessage : ?Text;
+    email : Text;
+    jobTitle : Text;
+    name : Text;
+    phone : Text;
+    socialLinks : SocialLinks__50115682;
+    website : ?Text
+  };
+type Data__791452850<K, V> =
+  {var count : Nat__490723111; kvs : [var ?(K, V)]};
+type Int__270357528 = Int__616954475;
+type Int__616954475 = Int;
+type Internal__8484328<K, V> =
+  {children : [var ?Node__46230540<K, V>]; data : Data__791452850<K, V>};
+type Leaf__809889148<K, V> = {data : Data__791452850<K, V>};
+type Map__158565046<K, V> = Map__297112838<K, V>;
+type Map__297112838<K, V> =
+  {var root : Node__46230540<K, V>; var size : Nat__490723111};
+type Map__605269027<K, V> = Map__158565046<K, V>;
+type Nat__490723111 = Nat__920180692;
+type Nat__920180692 = Nat;
+type Node__46230540<K, V> =
+  {#internal : Internal__8484328<K, V>; #leaf : Leaf__809889148<K, V>};
+type OrderId__530537007 = Nat;
+type OrderQuantity__71717747 = {#q100; #q1000; #q2000; #q500};
+type OrderStatus__269171109 = {#delivered; #pending; #processing; #shipped};
+type Order__932688151 =
+  {
+    cardDetails : CardDetails__557858974;
+    createdAt : Time__900049286;
+    id : OrderId__530537007;
+    owner : Principal;
+    paymentAmountCents : Nat;
+    quantity : OrderQuantity__71717747;
+    status : OrderStatus__269171109;
+    stripePaymentIntentId : ?Text;
+    templateId : TemplateId__960477678;
+    trackingNumber : ?Text;
+    updatedAt : Time__900049286
+  };
+type SocialLinks__50115682 =
+  {instagram : ?Text; linkedin : ?Text; twitter : ?Text};
+type TemplateId__960477678 = Nat;
+type Time__796480547 = Int__270357528;
+type Time__900049286 = Time__796480547;
+type UserRole__1054455867 = {#admin; #guest; #user};
+actor {
+  stable accessControlState :
+    {
+      var adminAssigned : Bool;
+      userRoles : Map__605269027<Principal, UserRole__1054455867>
+    };
+  stable var nextOrderId : Nat;
+  stable orders :
+    {
+      var blockIndex : Nat__490723111;
+      var blocks : [var [var ?Order__932688151]];
+      var elementIndex : Nat__490723111
+    }
+};

@@ -1,0 +1,23 @@
+{
+  "overview": "7EVEN is an NFC business card ordering platform. Users sign up, fill out their card details via a form, choose from template designs, and pay to order physical NFC cards. A dashboard shows order history and status.",
+  "features": [
+    "User signup and signin with Internet Identity",
+    "Multi-step Google Form-style customer details form",
+    "Template gallery with 5+ NFC card design previews",
+    "Live card preview updating in real-time",
+    "Stripe checkout for secure payment",
+    "Order confirmation with receipt",
+    "Dashboard showing order history and status",
+    "Order detail view with full card preview"
+  ],
+  "category": "productivity",
+  "tags": [
+    "nfc",
+    "business-cards",
+    "e-commerce",
+    "ordering",
+    "payments",
+    "templates"
+  ],
+  "last_updated": "2026-04-16T04:42:55.288Z"
+}
